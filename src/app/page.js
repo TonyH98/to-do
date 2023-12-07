@@ -19,6 +19,9 @@ const todos = await getTodos()
       <Link href="/form">New</Link>
      {todos.map(todo => (
       <li>
+        <input
+        type="checkbox"
+        />
         {todo.title}
       </li>
      ))}
