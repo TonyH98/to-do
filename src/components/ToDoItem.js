@@ -1,12 +1,18 @@
+"use client"
 
+export default function ToDoItem({todo, toggleToDo, deleteToDo}){
 
-export default function ToDoItem({id, title, complete}){
-
-    console.log(title)
+    console.log(todo)
 
     return(
         <div>
-            <h1>{title}</h1>
+            <input
+            type="checkbox"
+            defaultChecked={todo.complete}
+            onChange={e => toggleToDo(todo.id, e.target.checked)}
+            />
+            <h1>{todo.title}</h1>
+            <button onClick={() => deleteToDo(todo.id)}>Delete</button>
         </div>
     )
 }
