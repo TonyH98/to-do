@@ -1,41 +1,38 @@
+"use client"
 
-import { prisma } from "./db"
 import Link from "next/link"
 import ToDoItem from "@/components/ToDoItem"
+import { getTodos, toggleToDo, deleteToDo  } from "./serversideCalls"
+import { useState, useEffect } from 'react';
 
 
+export default function Home() {
 
-function getTodos(){
-
-  return prisma.Todo.findMany()
-}
-
-async function toggleToDo(id , complete){
-  "use server"
-
-  await prisma.Todo.update({where: {id}, data:{complete}})
-}
+  const [todos , setTodos] = useState([])
 
 
-async function deleteToDo(id) {
-  "use server"
+  useEffect(() => {
 
-    await prisma.Todo.delete({
-      where: {
-        id: id,
-      },
-    });
+    async function fetchData() {
+      const updatedTodos = await getTodos();
+      setTodos(updatedTodos);
+    }
 
-
-
-}
+    fetchData();
+  }, []); 
 
 
+  const handleToggle = async (id, complete) => {
+    await toggleToDo(id, complete);
+    const updatedTodos = await getTodos();
+    setTodos(updatedTodos);
+  };
 
-export default async function Home() {
-
-  
-const todos = await getTodos()
+  const handleDelete = async (id) => {
+    await deleteToDo(id);
+    const updatedTodos = await getTodos();
+    setTodos(updatedTodos);
+  };
 
   return (
     <main >
@@ -45,11 +42,14 @@ const todos = await getTodos()
      {todos.map(todo => (
       <ToDoItem
        todo={todo} 
-       toggleToDo={toggleToDo} 
-       deleteToDo={deleteToDo} 
+       toggleToDo={handleToggle} 
+       deleteToDo={handleDelete} 
    />
      ))}
     </main>
   )
 }
+
+
+
 
