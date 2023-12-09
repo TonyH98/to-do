@@ -24,3 +24,15 @@ export async function getTodos(){
       });
   
   }
+
+  export async function getTodo(id) {
+    
+      const todo = await prisma.todo.findUnique({
+        where: {
+          id: id,
+        },
+      });
+  
+      return todo;
+    
+  }

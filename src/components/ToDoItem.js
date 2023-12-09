@@ -1,22 +1,24 @@
 "use client"
 
-import Link from "next/link"
+// ToDoItem.js
+import Link from "next/link";
 
-export default function ToDoItem({todo, toggleToDo, deleteToDo}){
+export default function ToDoItem({ todo, toggleToDo, deleteToDo }) {
+  return (
+    <div>
+      <input
+        type="checkbox"
+        defaultChecked={todo.complete}
+        onChange={(e) => toggleToDo(todo.id, e.target.checked)}
+      />
 
-    console.log(todo)
+      <Link href={`/items/${todo.id}`}>
+     
+          <h1>{todo.title}</h1>
+    
+      </Link>
 
-    return(
-        <div>
-            <input
-            type="checkbox"
-            defaultChecked={todo.complete}
-            onChange={e => toggleToDo(todo.id, e.target.checked)}
-            />
-         
-            <h1>{todo.title}</h1>
-           
-            <button onClick={() => deleteToDo(todo.id)}>Delete</button>
-        </div>
-    )
+      <button onClick={() => deleteToDo(todo.id)}>Delete</button>
+    </div>
+  );
 }

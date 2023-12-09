@@ -12,7 +12,6 @@ export default function Home() {
 
 
   useEffect(() => {
-
     async function fetchData() {
       const updatedTodos = await getTodos();
       setTodos(updatedTodos);
