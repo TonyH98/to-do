@@ -1,11 +1,16 @@
 "use client"
 
 import { getTodo } from "@/app/serversideCalls";
+
 import { useState, useEffect } from 'react';
- 
+import { deleteToDo } from "@/app/serversideCalls";
+
+
 export default function ItemList({ params }) {
 
 const [todo , setTodo] = useState({})
+
+
 
   let {productId} = params
 
@@ -19,7 +24,14 @@ const [todo , setTodo] = useState({})
     fetchData();
   }, []); 
 
-  console.log(todo)
+   const handleDelete = async () => {
+    try {
+      await deleteToDo(todo.id);
+     
+    } catch (error) {
+      console.error('Error deleting todo:', error);
+    }
+  };
 
 
     return (
@@ -27,6 +39,7 @@ const [todo , setTodo] = useState({})
         <h1>Todo: {todo.title}</h1>
         <p>Details: {todo.details}</p>
         <span>Status: {!todo.complete ? "Not Complete" : "Complete"}</span>
+        <button onClick={handleDelete}>Delete</button>
       </div>
     );
   }
