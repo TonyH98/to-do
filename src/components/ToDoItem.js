@@ -1,9 +1,16 @@
 "use client"
 
-// ToDoItem.js
+import { useState } from "react";
+import Edit from "@/Modals/edit";
+
 import Link from "next/link";
 
 export default function ToDoItem({ todo, toggleToDo, deleteToDo }) {
+
+let [modal , setModal] = useState(false)
+
+console.log(modal)
+
   return (
     <div>
       <input
@@ -19,6 +26,9 @@ export default function ToDoItem({ todo, toggleToDo, deleteToDo }) {
       </Link>
 
       <button onClick={() => deleteToDo(todo.id)}>Delete</button>
+      <button onClick={() => setModal(!modal)}>Edit</button>
+
+      <Edit open={modal} onClose={() => {setModal(false);}} todo={todo}/>
     </div>
   );
 }

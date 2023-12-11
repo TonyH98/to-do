@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import ToDoItem from "@/components/ToDoItem"
-import { getTodos, toggleToDo, deleteToDo  } from "./serversideCalls"
+import { getTodos, toggleToDo, deleteToDo, changeDetails  } from "./serversideCalls"
 import { useState, useEffect } from 'react';
 
 
@@ -10,6 +10,7 @@ export default function Home() {
 
   const [todos , setTodos] = useState([])
 
+ 
 
   useEffect(() => {
     async function fetchData() {
@@ -43,6 +44,7 @@ export default function Home() {
        todo={todo} 
        toggleToDo={handleToggle} 
        deleteToDo={handleDelete} 
+       changeDetails={changeDetails}
    />
      ))}
     </main>

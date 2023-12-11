@@ -13,6 +13,10 @@ export async function getTodos(){
     await prisma.Todo.update({where: {id}, data:{complete}})
   }
   
+  export async function changeDetails(id, title, details){
+    "use server"
+    await prisma.Todo.update({where: {id},  data:{title , details}})
+  }
   
  export async function deleteToDo(id) {
     "use server"

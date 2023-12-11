@@ -14,6 +14,7 @@ datasource db {
 model Todo{
   id          Int @id @default(autoincrement())
   title       String
+  details     String
   complete    Boolean
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

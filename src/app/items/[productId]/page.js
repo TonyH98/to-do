@@ -1,6 +1,5 @@
 "use client"
 
-import {prisma} from "../../db"
 import { getTodo } from "@/app/serversideCalls";
 import { useState, useEffect } from 'react';
  
@@ -24,9 +23,11 @@ const [todo , setTodo] = useState({})
 
 
     return (
-      <h1>
-        Details about product {productId}
-      </h1>
+      <div>
+        <h1>Todo: {todo.title}</h1>
+        <p>Details: {todo.details}</p>
+        <span>Status: {!todo.complete ? "Not Complete" : "Complete"}</span>
+      </div>
     );
   }
   
