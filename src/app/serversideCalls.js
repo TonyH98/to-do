@@ -1,6 +1,7 @@
 "use server"
 
 import { prisma } from "./db"
+import {redirect} from "next/navigation"
 
 export async function getTodos(){
     "use server"
@@ -26,7 +27,7 @@ export async function getTodos(){
           id: id,
         },
       });
-  
+      redirect("/")
   }
 
   export async function getTodo(id) {
@@ -40,3 +41,24 @@ export async function getTodos(){
       return todo;
     
   }
+
+
+ export async function createToDo(data){
+    "use server"
+
+    let title = data.get("title")?.valueOf()
+
+    let details = data.get("details")?.valueOf()
+
+    if(typeof title !== "string" || title.length === 0){
+        throw new Error("Invalid Title")
+    }
+
+
+ if(typeof details !== "string" || details.length === 0){
+        throw new Error("Invalid details")
+    }
+
+    await prisma.Todo.create({data: {title, details, complete: false}})
+    redirect("/")
+}

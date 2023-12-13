@@ -9,7 +9,7 @@ export default function ToDoItem({ changeDetails, todo, toggleToDo, deleteToDo }
 
 let [modal , setModal] = useState(false)
 
-console.log(modal)
+
 
   return (
     <div>

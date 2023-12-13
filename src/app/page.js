@@ -43,10 +43,16 @@ export default function Home() {
 
   return (
     <main className="ml-3 mt-4">
-      <h1>To Do List</h1>
 
-      <div className="mb-3 mt-5">
+      <div className="flex flex-row items-center justify-between mb-5">
+
+      <h1 className="text-xl">To Do List</h1>
+
+      <button className="border-solid border-white border-2 w-20 h-10 rounded-md hover:text-sky-500 ml-auto mr-10 text-lg">
       <Link href="/form">New</Link>
+      </button>
+      
+
       </div>
 
       <div className="flex flex-col gap-y-8">
