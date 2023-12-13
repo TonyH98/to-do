@@ -34,6 +34,13 @@ export default function Home() {
     setTodos(updatedTodos);
   };
 
+  const handleChange = async (id, title, details) => {
+    await changeDetails(id, title, details)
+    const updatedTodos = await getTodos();
+    setTodos(updatedTodos);
+
+  }
+
   return (
     <main className="ml-3 mt-4">
       <h1>To Do List</h1>
@@ -42,14 +49,16 @@ export default function Home() {
       <Link href="/form">New</Link>
       </div>
 
+      <div className="flex flex-col gap-y-8">
      {todos.map(todo => (
-      <ToDoItem
-       todo={todo} 
-       toggleToDo={handleToggle} 
-       deleteToDo={handleDelete} 
-       changeDetails={changeDetails}
-   />
-     ))}
+        <ToDoItem
+         todo={todo} 
+         toggleToDo={handleToggle} 
+         deleteToDo={handleDelete} 
+         changeDetails={handleChange}
+        />
+        ))}
+        </div>
     </main>
   )
 }

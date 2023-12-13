@@ -5,7 +5,7 @@ import Edit from "@/Modals/edit";
 
 import Link from "next/link";
 
-export default function ToDoItem({ todo, toggleToDo, deleteToDo }) {
+export default function ToDoItem({ changeDetails, todo, toggleToDo, deleteToDo }) {
 
 let [modal , setModal] = useState(false)
 
@@ -41,7 +41,7 @@ console.log(modal)
 
       </div>
 
-      <Edit open={modal} onClose={() => {setModal(false);}} todo={todo}/>
+      <Edit changeDetails={changeDetails} open={modal} onClose={() => {setModal(false);}} todo={todo}/>
     </div>
   );
 }

@@ -1,9 +1,9 @@
 "use client"
 
-import { changeDetails } from "@/app/serversideCalls"
+
 import {useState , useEffect} from "react"
 
-export default function edit({onClose , open, todo}){
+export default function edit({changeDetails, onClose , open, todo}){
 
 let [edit , setEdit] = useState({
     title: "",
@@ -25,8 +25,8 @@ function handleText(e){
 }
 
 
-const handleSubmit = async (e) => {
-    e.preventDefault()
+const handleSubmit = async () => {
+
 
     try{
         await changeDetails(todo.id, edit.title, edit.details)
@@ -40,29 +40,40 @@ const handleSubmit = async (e) => {
 
 
     return(
-        <div className="modal-overlay">
-        <div className="modal-container2">
-          <div className="modalRight2">
-            <button className="closeBtn2" onClick={onClose}>X</button>
+        <div className="fixed top-0 left-0 flex justify-center items-center mt-5 ">
+        <div className="bg-black border-white border-2 w-1/3">
+          <div className="">
+            <button className="" onClick={onClose}>X</button>
           </div>
-          <div className="content">
-          <h2>Change Todo Items</h2>
-           <form onSubmit={handleSubmit}>
+          <div>
+          <h2 className="mb-3 mt-3">Change Todo Items</h2>
+           <form action={handleSubmit}>
+
+            <div className="flex flex-col gap-y-3">
+
            <input
             value={edit.title}
+            className="text-black"
             name="title"
             type="text"
             onChange={handleText}
             />
-            <input
+
+            <textarea
             value={edit.details}
+            className="text-black"
             name="details"
-            type="text"
             onChange={handleText}
             />
+            </div>
 
-            <button type="submit">Submit</button>
-            <button onClick={onClose}>Cancel</button>
+            <div className="flex flex-row gap-x-4 mt-4 ml-4">
+
+            <button className="border-solid border-white border-2 w-20 h-10 rounded-md hover:text-sky-500" type="submit">Submit</button>
+            <button className="border-solid border-white border-2 w-20 h-10 rounded-md hover:text-sky-500" onClick={onClose}>Cancel</button>
+
+            </div>
+
            </form>
           </div>
 
