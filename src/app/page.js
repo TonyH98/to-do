@@ -35,10 +35,13 @@ export default function Home() {
   };
 
   return (
-    <main >
+    <main className="ml-3 mt-4">
       <h1>To Do List</h1>
-      
+
+      <div className="mb-3 mt-5">
       <Link href="/form">New</Link>
+      </div>
+
      {todos.map(todo => (
       <ToDoItem
        todo={todo} 

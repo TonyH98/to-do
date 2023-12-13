@@ -13,6 +13,8 @@ console.log(modal)
 
   return (
     <div>
+
+      <div className="flex flex-row gap-x-2">
       <input
         type="checkbox"
         defaultChecked={todo.complete}
@@ -25,8 +27,19 @@ console.log(modal)
     
       </Link>
 
-      <button onClick={() => deleteToDo(todo.id)}>Delete</button>
-      <button onClick={() => setModal(!modal)}>Edit</button>
+      </div>
+
+      <div className="flex flex-row gap-x-4 mt-3">
+
+      <button className="border-solid border-white border-2 w-20 h-10 rounded-md hover:text-sky-500" 
+      onClick={() => deleteToDo(todo.id)}>Delete
+      </button>
+
+      <button className="border-solid border-white border-2 w-20 h-10 rounded-md hover:text-sky-500"
+       onClick={() => setModal(!modal)}>Edit
+       </button>
+
+      </div>
 
       <Edit open={modal} onClose={() => {setModal(false);}} todo={todo}/>
     </div>
