@@ -1,8 +1,9 @@
 "use client"
 
-
 import {useState , useEffect} from "react"
+
 import "./edit.css"
+
 export default function edit({changeDetails, onClose , open, todo}){
 
 let [edit , setEdit] = useState({
@@ -23,6 +24,7 @@ function handleText(e){
         [name]: value
     }))
 }
+
 
 
 const handleSubmit = async () => {
@@ -67,9 +69,13 @@ const handleSubmit = async () => {
             className="text-black text-lg"
             name="details"
             onChange={handleText}
+            maxLength="300"
             />
 
             </label>
+            <p className={`${edit.details.length >= 300 ? 'text-red-700' : null}`}>
+            {edit.details.length}/300 characters
+            </p>
             </div>
 
             <div className="flex flex-row gap-x-4 mt-4 ml-4 mb-5">

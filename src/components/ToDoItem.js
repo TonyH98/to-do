@@ -15,6 +15,8 @@ function handleHidden(){
   setHidden(!hidden)
 }
 
+console.log(todo.createdAt)
+
   return (
     <div>
 
@@ -28,12 +30,15 @@ function handleHidden(){
 
       <div >
       <Link href={`/items/${todo.id}`}>
-      <h1 className={` ${todo.complete ? 'line-through' : ''}`}>{todo.title}</h1>
+      <h1>
+        <span className={` ${todo.complete ? 'line-through text-blue-500' : ''}`}> <span className="text-white">{todo.title}</span></span>
+      </h1>
+
       </Link>
       </div>
 
 
-      <button className="ml-3" onClick={handleHidden}>Show Details</button>
+      <button className="ml-3 hover:text-sky-500" onClick={handleHidden}>Show Details</button>
       </div>
 
       {hidden ? (
