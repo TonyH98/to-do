@@ -18,4 +18,12 @@ model Todo{
   complete    Boolean
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  date        TaskDate @relation(fields: [dateId], references: [id])
+  dateId      Int
+}
+
+model TaskDate{
+  id    Int @id @default(autoincrement())
+  date  DateTime
+  tasks Todo[]
 }

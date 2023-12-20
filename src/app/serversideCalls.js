@@ -7,6 +7,11 @@ export async function getTodos(){
     "use server"
     return prisma.Todo.findMany()
   }
+
+export async function getDates(){
+  "use server"
+  return prisma.TaskDate.findMany()
+}
   
   export async function toggleToDo(id , complete){
     "use server"

@@ -2,6 +2,8 @@
 
 import Link from "next/link"
 import ToDoItem from "@/components/ToDoItem"
+import { getDates } from "./serversideCalls"
+import MyCalendar from "@/components/Calendar"
 import { getTodos, toggleToDo, deleteToDo, changeDetails  } from "./serversideCalls"
 import { useState, useEffect } from 'react';
 
@@ -55,16 +57,18 @@ export default function Home() {
 
       </div>
 
-      <div className="flex flex-col gap-y-8">
+      {/* <div className="flex flex-col gap-y-8">
      {todos.map(todo => (
-        <ToDoItem
-         todo={todo} 
-         toggleToDo={handleToggle} 
-         deleteToDo={handleDelete} 
-         changeDetails={handleChange}
-        />
-        ))}
-        </div>
+       <ToDoItem
+       todo={todo} 
+       toggleToDo={handleToggle} 
+       deleteToDo={handleDelete} 
+       changeDetails={handleChange}
+       />
+       ))}
+        </div> */}
+
+       <MyCalendar/>
     </main>
   )
 }

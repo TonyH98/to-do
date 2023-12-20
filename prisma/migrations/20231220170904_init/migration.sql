@@ -1,0 +1,17 @@
+-- CreateTable
+CREATE TABLE "Todo" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "title" TEXT NOT NULL,
+    "details" TEXT NOT NULL,
+    "complete" BOOLEAN NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL,
+    "dateId" INTEGER NOT NULL,
+    CONSTRAINT "Todo_dateId_fkey" FOREIGN KEY ("dateId") REFERENCES "TaskDate" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "TaskDate" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "date" DATETIME NOT NULL
+);

@@ -15,7 +15,7 @@ function handleHidden(){
   setHidden(!hidden)
 }
 
-console.log(todo.createdAt)
+
 
   return (
     <div>
