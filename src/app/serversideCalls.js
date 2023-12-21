@@ -25,7 +25,7 @@ export async function getTodos(){
   
 
 
- export async function deleteToDo(id) {
+ export async function deleteToDo(id, dateId) {
     "use server"
   
       await prisma.Todo.delete({
@@ -33,7 +33,7 @@ export async function getTodos(){
           id: id,
         },
       });
-      redirect("/")
+      redirect(`/dates/${dateId}`)
   }
 
 
@@ -52,30 +52,39 @@ export async function getTodos(){
 
 
 
- export async function createToDo(dateId, formData){
-    "use server"
-
-    let title = formData.get("title")?.valueOf()
-
-    let details = formData.get("details")?.valueOf()
-
+  export async function createToDo(dateId, formData, date) {
+    "use server";
+  
+    let title = formData.get("title")?.valueOf();
+    let details = formData.get("details")?.valueOf();
+  
     const taskDate = await prisma.TaskDate.findUnique({
       where: { id: dateId },
     });
+  
+   
+    const formattedDate = new Date(taskDate.date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).replace(/\//g, '-');
+  
 
-
-    if(typeof title !== "string" || title.length === 0){
-        throw new Error("Invalid Title")
+  
+    if (typeof title !== "string" || title.length === 0) {
+      throw new Error("Invalid Title");
     }
-
-
- if(typeof details !== "string" || details.length === 0){
-        throw new Error("Invalid details")
+  
+    if (typeof details !== "string" || details.length === 0) {
+      throw new Error("Invalid details");
     }
-
-    await prisma.Todo.create({data: {title, details, complete: false, dateId: taskDate.id}})
-    redirect("/")
-}
+  
+    await prisma.Todo.create({ data: { title, details, complete: false, dateId: taskDate.id } });
+    
+    redirect(`/dates/${formattedDate}`);
+  }
+  
+  
 
 
 export async function createDate(dateValue) {

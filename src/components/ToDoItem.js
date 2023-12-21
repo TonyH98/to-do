@@ -29,12 +29,11 @@ function handleHidden(){
 
 
       <div >
-      <Link href={`/items/${todo.id}`}>
+     
       <h1>
         <span className={` ${todo.complete ? 'line-through text-blue-500' : ''}`}> <span className="text-white">{todo.title}</span></span>
       </h1>
 
-      </Link>
       </div>
 
 
