@@ -24,6 +24,6 @@ model Todo{
 
 model TaskDate{
   id    Int @id @default(autoincrement())
-  date  DateTime
+  date  String
   tasks Todo[]
 }

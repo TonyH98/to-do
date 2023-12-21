@@ -24,22 +24,19 @@ const [todo , setTodo] = useState({})
     fetchData();
   }, []); 
 
-   const handleDelete = async () => {
-    try {
-      await deleteToDo(todo.id);
+  //  const handleDelete = async () => {
+  //   try {
+  //     await deleteToDo(todo.id);
      
-    } catch (error) {
-      console.error('Error deleting todo:', error);
-    }
-  };
+  //   } catch (error) {
+  //     console.error('Error deleting todo:', error);
+  //   }
+  // };
 
 
     return (
       <div>
-        <h1>Todo: {todo.title}</h1>
-        <p>Details: {todo.details}</p>
-        <span>Status: {!todo.complete ? "Not Complete" : "Complete"}</span>
-        <button onClick={handleDelete}>Delete</button>
+       {productId}
       </div>
     );
   }

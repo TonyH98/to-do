@@ -13,5 +13,5 @@ CREATE TABLE "Todo" (
 -- CreateTable
 CREATE TABLE "TaskDate" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "date" DATETIME NOT NULL
+    "date" TEXT NOT NULL
 );
