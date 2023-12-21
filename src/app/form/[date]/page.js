@@ -1,25 +1,33 @@
 "use client"
 
 import Link from "next/link"
-import { createToDo } from "../serversideCalls"
+import { createToDo } from "@/app/serversideCalls"
 import { useState } from "react"
 
 
-export default function page(){
+export default function page({ params }){
 
     let [details , setDetails] = useState(0)
 
+    let {date} = params
+    
     const handleDetailsChange = (event) => {
         const details = event.target.value;
         setDetails(details.length);
       };
     
-   
+      const handleSubmit = async (event, dateId) => {
+        event.preventDefault()
+
+        let formData = new FormData(event.target)
+
+        await createToDo(dateId , formData)
+      }
     return(
         <>
         <header className="ml-10 mt-5">
             <h1 className="mb-10">New Item:</h1>
-            <form action={createToDo} className="flex flex-col gap-y-3">
+            <form onSubmit={(e) => handleSubmit(e, Number(date))} className="flex flex-col gap-y-3">
                 <div className="flex flex-col gap-y-3">
                 <label htmlFor="title" className="flex flex-col gap-y-1.5"> Title:
                 <input 

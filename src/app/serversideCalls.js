@@ -6,7 +6,7 @@ import {redirect} from "next/navigation"
 export async function getTodos(){
     "use server"
     return prisma.Todo.findMany()
-  }
+}
 
 
   
@@ -16,11 +16,15 @@ export async function getTodos(){
     await prisma.Todo.update({where: {id}, data:{complete}})
   }
   
+
+
   export async function changeDetails(id, title, details){
     "use server"
     await prisma.Todo.update({where: {id},  data:{title , details}})
   }
   
+
+
  export async function deleteToDo(id) {
     "use server"
   
@@ -31,6 +35,8 @@ export async function getTodos(){
       });
       redirect("/")
   }
+
+
 
   export async function getTodo(id) {
     
@@ -45,12 +51,13 @@ export async function getTodos(){
   }
 
 
- export async function createToDo(dateId, data){
+
+ export async function createToDo(dateId, formData){
     "use server"
 
-    let title = data.get("title")?.valueOf()
+    let title = formData.get("title")?.valueOf()
 
-    let details = data.get("details")?.valueOf()
+    let details = formData.get("details")?.valueOf()
 
     const taskDate = await prisma.TaskDate.findUnique({
       where: { id: dateId },
@@ -66,11 +73,9 @@ export async function getTodos(){
         throw new Error("Invalid details")
     }
 
-    await prisma.Todo.create({data: {title, details, complete: false, dateId: taskDate}})
+    await prisma.Todo.create({data: {title, details, complete: false, dateId: taskDate.id}})
     redirect("/")
 }
-
-
 
 
 export async function createDate(dateValue) {
@@ -81,7 +86,7 @@ export async function createDate(dateValue) {
       throw new Error("Invalid date value");
     }
 
-    // Convert date to ISO-8601 format
+ 
     const isoDateValue = new Date(dateValue).toISOString();
 
     const findDate = await prisma.TaskDate.findFirst({
@@ -94,7 +99,7 @@ export async function createDate(dateValue) {
 
     const createdDate = await prisma.TaskDate.create({
       data: {
-        date: new Date(isoDateValue),
+        date: isoDateValue
       },
     });
 
@@ -107,3 +112,43 @@ export async function createDate(dateValue) {
   }
 }
 
+
+
+export async function getDate(dates){
+
+  const isoDateValue = new Date(dates).toISOString();
+
+  const date = await prisma.TaskDate.findFirst({
+    where: { date: isoDateValue },
+  });
+
+  return date
+
+}
+
+
+export async function getTodosForDate(dateId) {
+  "use server";
+
+  try {
+    if (!dateId) {
+      throw new Error("Invalid dateId");
+    }
+
+    // Find the TaskDate by ID
+    const taskDate = await prisma.TaskDate.findUnique({
+      where: { id: dateId },
+      include: { tasks: true },
+    });
+
+    if (!taskDate) {
+      throw new Error(`TaskDate with ID ${dateId} not found`);
+    }
+
+    // Return the array of Todos for the specified date
+    return taskDate.tasks;
+  } catch (error) {
+    console.error(`Error fetching Todos for date with ID ${dateId}:`, error);
+    throw error;
+  }
+}
